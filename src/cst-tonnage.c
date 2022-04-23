@@ -163,9 +163,148 @@ void incrementTonnage(void)
 
 void decrementTonnage(void)
 {
-	if((0 == currentTonnage) || (currentTonnage > 3))
+	if ((0 == currentTonnage) || (currentTonnage > 3))
 		currentTonnage = 0;
 	else
 		currentTonnage--;
 }
 
+/*
+	Linear tonnage curve
+	y=x
+	|							x
+	|						x
+	|					x
+	|				x
+	|			x
+	|		x
+	|	x
+	----------------------
+*/
+const uint8_t LinearTonnage[16] =
+	{
+		0b0000000,
+		0b0000100,
+		0b0001000,
+		0b0001100,
+		0b0010000,
+		0b0010100,
+		0b0011000,
+		0b0011100,
+		0b0100000,
+		0b0100100,
+		0b0101000,
+		0b0101100,
+		0b0110000,
+		0b0110100,
+		0b0111000,
+		0b0111111};
+
+/*
+	Sublinear tonnage curve
+	y=x^2
+	|							x
+	|						x
+	|
+	|					x
+	|				x
+	|		x	x
+	|	x
+	-------------------------------
+*/
+const uint8_t SublinearTonnage[16] =
+	{
+		0b0000000,
+		0b0000100,
+		0b0001000,
+		0b0001100,
+		0b0010000,
+		0b0010100,
+		0b0011000,
+		0b0011100,
+		0b0100000,
+		0b0100100,
+		0b0101000,
+		0b0101100,
+		0b0110000,
+		0b0110100,
+		0b0111000,
+		0b0111111};
+
+/*
+	Sublinear tonnage curve
+	y=x^3
+	|							x
+	|
+	|						x
+	|
+	|					x
+	|			x	x
+	|	x	x
+	-------------------------------
+*/
+const uint8_t Sub3linearTonnage[16] =
+	{
+		0b0000000,
+		0b0000100,
+		0b0001000,
+		0b0001100,
+		0b0010000,
+		0b0010100,
+		0b0011000,
+		0b0011100,
+		0b0100000,
+		0b0100100,
+		0b0101000,
+		0b0101100,
+		0b0110000,
+		0b0110100,
+		0b0111000,
+		0b0111111};
+
+/*
+	Sublinear tonnage curve
+	y=x^4
+	|							x
+	|
+	|
+	|						x
+	|
+	|					x
+	|	x	x	x	x
+	-------------------------------
+*/
+const uint8_t Sub4linearTonnage[16] =
+	{
+		0b0000000,
+		0b0000100,
+		0b0001000,
+		0b0001100,
+		0b0010000,
+		0b0010100,
+		0b0011000,
+		0b0011100,
+		0b0100000,
+		0b0100100,
+		0b0101000,
+		0b0101100,
+		0b0110000,
+		0b0110100,
+		0b0111000,
+		0b0111111};
+
+const __uint8_t dutyWidth = 128;
+const __uint8_t tonnageDuration = 128;
+const __uint8_t numSteps = 16;
+__uint8_t currentStep = 0;
+__uint8_t tonnageChart[16] = LinearTonnage;
+
+void evaluateTonnage(void)
+{
+}
+
+void stepTonnage(void)
+{
+	if (currentStep < 15)
+		currentStep++;
+}
