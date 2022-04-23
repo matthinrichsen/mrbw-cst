@@ -293,18 +293,45 @@ const uint8_t Sub4linearTonnage[16] =
 		0b0111000,
 		0b0111111};
 
-const __uint8_t dutyWidth = 128;
-const __uint8_t tonnageDuration = 128;
-const __uint8_t numSteps = 16;
-__uint8_t currentStep = 0;
-__uint8_t tonnageChart[16] = LinearTonnage;
+const uint8_t numSteps = 16;
 
-void evaluateTonnage(void)
+struct Tonnage {
+	uint8_t currentStep;
+	uint8_t tonnageRamp;
+	uint8_t dutyWidth;
+	uint8_t tonnageDuration;
+};
+
+uint8_t evaluateTonnage(struct Tonnage *t)
 {
+	if(t==NULL){
+		return 0;
+	}
+
+	uint8_t amt = 0;
+	switch(t->tonnageRamp)
+	{
+		case 0:
+			amt = LinearTonnage[t->currentStep];
+			break;
+		case 1:
+			amt = Sub2linearTonnage[t->currentStep];
+			break;
+		case 2:
+			amt = Sub3linearTonnage[t->currentStep];
+			break;
+		case 3:
+			amt = Sub4linearTonnage[t->currentStep];
+			break;
+	}
+	return amt;
 }
 
-void stepTonnage(void)
+void stepTonnage(struct Tonnage *t)
 {
-	if(currentStep < 15)
-		currentStep++;
+	if(t==NULL){
+		return;
+	}
+	if(t->currentStep < numSteps-1)
+		t->currentStep++;
 }
