@@ -3947,6 +3947,17 @@ int main(void)
 			}
 		}
 
+		wdt_reset();
+
+		switch(tonnageSetting)
+		{
+			case TONNAGE_OFF:
+				break;
+			case TONNAGE_ON:
+				functionMask |= getFunctionMask(TONNAGE_FN);
+				break;
+		}
+
 		// Force specific functions on or off
 		functionMask |= functionForceOn;
 		functionMask &= ~functionForceOff;

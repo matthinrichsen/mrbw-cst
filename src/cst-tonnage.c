@@ -305,6 +305,6 @@ void evaluateTonnage(void)
 
 void stepTonnage(void)
 {
-	if (currentStep < 15)
+	if(currentStep < 15)
 		currentStep++;
 }
