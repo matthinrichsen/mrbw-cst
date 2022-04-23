@@ -194,6 +194,10 @@ uint8_t estopStatus = 0;
 #define ESTOP_BUTTON   0x02
 #define ESTOP_ALERTER  0x04
 
+uint8_t tonnageSetting = 0;
+#define TONNAGE_OFF 0x01
+#define TONNAGE_ON  0x02
+
 uint16_t sleep_tmr_reset_value;
 uint16_t alerter_tmr_reset_value;
 
